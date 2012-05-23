@@ -133,7 +133,7 @@ ROOT_URLCONF = '{{ project_name }}.urls.default'
 # Basic path settings
 #
 
-PROJECT_ROOT = os.path.realpath(os.path.join(os.path.dirname(__file__), '../'))
+PROJECT_ROOT = os.path.realpath(os.path.join(os.path.dirname(__file__), '../../'))
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
 
