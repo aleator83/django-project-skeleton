@@ -2,5 +2,5 @@ django>=1.4
 gunicorn==0.14.2
 boto==2.1.1
 PIL==1.1.7
-fabric==1.4.1
+fabric==1.4.3
 -e hg+https://bitbucket.org/david/django-storages#egg=django-storages
