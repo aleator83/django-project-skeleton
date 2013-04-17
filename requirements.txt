@@ -1,6 +1,7 @@
-django>=1.4
-gunicorn==0.14.2
-boto==2.1.1
-PIL==1.1.7
-fabric==1.4.3
--e hg+https://bitbucket.org/david/django-storages#egg=django-storages
+django==1.5.1
+gunicorn>=0.17.2
+boto>=2.4.0
+PIL>=1.1.7
+django-storages==1.1.8
+Jinja2==2.6
+jingo==0.6.1
