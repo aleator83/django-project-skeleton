@@ -27,6 +27,8 @@ DATABASES = {
 # Django settings
 #
 
+ALLOWED_HOSTS = ('*', )
+
 WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 MIDDLEWARE_CLASSES = (
@@ -61,7 +63,17 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
     'django.contrib.redirects',
+
+    'gunicorn',
+    'jingo',
+
+    '{{ project_name }}',
 )
+
+
+#
+# Templating
+#
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -73,22 +85,29 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
 )
 
-# login urls, for cms only
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/logout/'
+# enable jingo by default
+TEMPLATE_LOADERS = (
+    'jingo.Loader',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+
+#
+# Using S3 for storage
+#
 
 # custom storage backend (s3/cloudfront)
-# with a hack to parallelize cdn requests
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
-AWS_STORAGE_BUCKET_NAME = '{{ project_name }}-cdn'
-AWS_S3_SECURE_URLS = False
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_FILE_OVERWRITE = True
-AWS_IS_GZIPPED = True
-AWS_HEADERS = {'Expires': 'Thu, 15 Apr %s 20:00:00 GMT' % (date.today().year + 10),
-               'Cache-Control': 'max-age=86400'}
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# AWS_ACCESS_KEY_ID = ''
+# AWS_SECRET_ACCESS_KEY = ''
+# AWS_STORAGE_BUCKET_NAME = '{{ project_name }}-cdn'
+# AWS_S3_SECURE_URLS = False
+# AWS_QUERYSTRING_AUTH = False
+# AWS_S3_FILE_OVERWRITE = True
+# AWS_IS_GZIPPED = True
+# AWS_HEADERS = {'Expires': 'Thu, 15 Apr %s 20:00:00 GMT' % (date.today().year + 10),
+#                'Cache-Control': 'max-age=86400'}
 
 SITE_ID = 1
 
@@ -147,7 +166,7 @@ TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates/'), )
 #
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, '../public/')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'public/')
 STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static/'), )
 
 STATICFILES_FINDERS = (
