@@ -1,7 +1,7 @@
 django-project-skeleton
 =======================
 
-Django 1.4 project skeleton
+Django project skeleton. Targeted for 1.6+.
 
 ## Usage
 
