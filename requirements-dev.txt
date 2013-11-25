@@ -1,2 +1,2 @@
 -r requirements.txt
-fabric==1.4.3
+fabric==1.8.0
